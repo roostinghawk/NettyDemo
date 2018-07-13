@@ -13,20 +13,21 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/7/12
  */
 public class ClientInboundHandler extends ChannelInboundHandlerAdapter {
-        private SocketClient client;
+    private SocketClient client;
 
-        public ClientInboundHandler(SocketClient client) {
-            this.client = client;
-        }
+    public ClientInboundHandler(SocketClient client) {
+        this.client = client;
+    }
 
-        @Override
-        public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-            final EventLoop eventLoop = ctx.channel().eventLoop();
-            eventLoop.schedule(new Runnable() {
-                @Override
-                public void run() {
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        final EventLoop eventLoop = ctx.channel().eventLoop();
+        eventLoop.schedule(new Runnable() {
+            @Override
+            public void run() {
                 client.createBootstrap(new Bootstrap(), eventLoop);
-            }}, 1L, TimeUnit.SECONDS);
-            super.channelInactive(ctx);
-        }
+            }
+        }, 1L, TimeUnit.SECONDS);
+        super.channelInactive(ctx);
+    }
 }

@@ -55,4 +55,8 @@ public class ConnectionHolder {
         this.onlineClientConnectionMap.remove(sn);
     }
 
+    public Map<String, ChannelHandlerContext> getOnlineClientConnectionMap() {
+        return onlineClientConnectionMap;
+    }
+
 }

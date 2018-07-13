@@ -12,21 +12,23 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/7/12
  */
 public class ConnectionListener implements ChannelFutureListener {
-        private SocketClient client;
-        public ConnectionListener(SocketClient client) {
-this.client = client; 
-}
-        @Override
-        public void operationComplete(ChannelFuture channelFuture) throws Exception {
-if (!channelFuture.isSuccess()) { 
-System.out.println("Reconnect"); 
-final EventLoop loop = channelFuture.channel().eventLoop();
-loop.schedule(new Runnable() {
+    private SocketClient client;
+
+    public ConnectionListener(SocketClient client) {
+        this.client = client;
+    }
+
+    @Override
+    public void operationComplete(ChannelFuture channelFuture) throws Exception {
+        if (!channelFuture.isSuccess()) {
+            System.out.println("Reconnect");
+            final EventLoop loop = channelFuture.channel().eventLoop();
+            loop.schedule(new Runnable() {
                 @Override
-                public void run() { 
-client.createBootstrap(new Bootstrap(), loop);
-}
-                }, 1L, TimeUnit.SECONDS);
-} 
-}
+                public void run() {
+                    client.createBootstrap(new Bootstrap(), loop);
+                }
+            }, 1L, TimeUnit.SECONDS);
+        }
+    }
 }
