@@ -18,8 +18,8 @@ public class GsonUtils {
                 }
             }).create();
 
-    public static Map<Integer, Object> GsonToMap(String data) {
-        Map<Integer, Object> map = gson.fromJson(data, new TypeToken<Map<Integer, Object>>() {
+    public static Map<String, Object> GsonToMap(String data) {
+        Map<String, Object> map = gson.fromJson(data, new TypeToken<Map<String, Object>>() {
         }.getType());
         return map;
     }

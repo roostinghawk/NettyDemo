@@ -1,5 +1,7 @@
 package com.liuwei.demo.server;
 
+import com.liuwei.demo.codec.InboundDecoder;
+import com.liuwei.demo.codec.OutboundEncoder;
 import com.liuwei.demo.handler.ChannelIdleTimoutHandler;
 import com.liuwei.demo.handler.ClientInactiveHandler;
 import com.liuwei.demo.handler.MessageHandler;
@@ -53,8 +55,8 @@ public class SocketServer {
                                 SocketServer.this.nettyConfig.getKeepalivedTimeout(),
                                 SocketServer.this.nettyConfig.getKeepalivedTimeout()));
                         pipeline.addLast("idleEventHandler", SocketServer.this.channelIdleTimoutHandler);
-//                        pipeline.addLast("decoder", new InboundDecoder());
-//                        pipeline.addLast("encoder", new OutboundEncoder());
+                        pipeline.addLast("decoder", new InboundDecoder());
+                        pipeline.addLast("encoder", new OutboundEncoder());
                         pipeline.addLast("messageHandler", SocketServer.this.messageHandler);
                         pipeline.addLast("serverExceptionHandler", SocketServer.this.serverExceptionHandler);
                         pipeline.addLast("inactiveHandler", SocketServer.this.clientInactiveHandler);

@@ -15,13 +15,13 @@ import static com.liuwei.demo.server.NettyConstants.*;
 @Slf4j
 @Component
 @Sharable
-public class MessageHandler extends SimpleChannelInboundHandler<String> {
+public class MessageHandler extends SimpleChannelInboundHandler<Object> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, String message) {
+    protected void channelRead0(ChannelHandlerContext ctx, Object message) {
         log.info("接收到：" + message);
 
-        Map<Integer, Object> gsonMap = GsonUtils.GsonToMap(message);
+        Map<String, Object> gsonMap = GsonUtils.GsonToMap(message.toString());
         Integer command = GsonUtils.Double2Integer((Double) gsonMap.get(KEY_COMMAND));
         String data = gsonMap.get(KEY_DATA).toString();
         ConnectionHolder connectionHolder = ConnectionHolder.getInstance();

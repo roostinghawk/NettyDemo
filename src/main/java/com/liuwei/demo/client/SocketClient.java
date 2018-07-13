@@ -1,5 +1,7 @@
 package com.liuwei.demo.client;
 
+import com.liuwei.demo.message.ClientMessage;
+import com.liuwei.demo.server.NettyConstants;
 import com.liuwei.demo.util.GsonUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
@@ -33,7 +35,11 @@ public class SocketClient
             try {
                 System.out.print("Enter something : ");
                 String input = br.readLine();
-                holder.getChannelHandlerContext().writeAndFlush(Unpooled.copiedBuffer(input, CharsetUtil.UTF_8));
+                ClientMessage clientMessage = new ClientMessage();
+                clientMessage.setCommand(NettyConstants.COM_CHAT);
+                clientMessage.setData(input);
+                holder.getChannelHandlerContext().writeAndFlush(
+                        Unpooled.copiedBuffer(GsonUtils.toJson(clientMessage), CharsetUtil.UTF_8));
 
             } catch (IOException e) {
                 e.printStackTrace();
