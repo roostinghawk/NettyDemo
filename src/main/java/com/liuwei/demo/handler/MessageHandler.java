@@ -35,7 +35,9 @@ public class MessageHandler extends SimpleChannelInboundHandler<Object> {
             case COM_CHAT: {
                 // 广播给各个客户端
                 for(ChannelHandlerContext context : connectionHolder.getOnlineClientConnectionMap().values()){
-                    context.writeAndFlush(message);
+                    if(context != ctx) {
+                        context.writeAndFlush(message);
+                    }
                 }
                 break;
             }

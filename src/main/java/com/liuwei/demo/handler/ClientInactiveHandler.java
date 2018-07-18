@@ -9,15 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * 通道闲置超时处理（心跳处理）
- *
- * @author liuyg
+ * 通道关闭超时处理（客户端关闭触发等情况）
  */
 @Slf4j
 @Component
 @Sharable
 public class ClientInactiveHandler extends ChannelInboundHandlerAdapter {
-
 
     @Override
     public void channelInactive(final ChannelHandlerContext ctx) throws Exception {

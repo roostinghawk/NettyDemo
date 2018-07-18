@@ -19,7 +19,6 @@ public class ClientMessageHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String message) {
-        log.info("接收到：" + message);
-        System.out.println(message);
+        log.info("接收到：" +message);
     }
 }
